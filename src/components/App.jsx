@@ -6,6 +6,7 @@ import { ErrorMessage } from './ErrorMessage/ErrorMessage';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { LoadMoreBtn } from './LoadMoreBtn/LoadMoreBtn';
 import { ImageModal } from './ImageModal/ImageModal';
+import { Toaster } from 'react-hot-toast';
 import css from './App.module.css';
 
 export const App = () => {
@@ -77,6 +78,7 @@ export const App = () => {
       <div className={css.centered}>
         {page < totalPage && <LoadMoreBtn onClick={loadMore} />}
       </div>
+      <Toaster />
     </div>
   );
 };
