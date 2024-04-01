@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { fetchAPI } from './fetch-api'
 import { SearchBar } from './SearchBar/SearchBar';
 import { Loader } from './Loader/Loader';
 import { ErrorMessage } from './ErrorMessage/ErrorMessage';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { LoadMoreBtn } from './LoadMoreBtn/LoadMoreBtn';
+import { ImageModal } from './ImageModal/ImageModal';
 import css from './App.module.css';
 
 export const App = () => {
@@ -15,6 +16,7 @@ export const App = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleSearch = async () => {
     try {
@@ -40,7 +42,7 @@ export const App = () => {
   };
 
   useEffect(() => {
-    if (topic || page > 1) {
+    if (topic.trim() || page > 1) {
       handleSearch();
     }
   }, [topic, page]);
@@ -56,13 +58,22 @@ export const App = () => {
     setError(false);
   };
 
+  const openModal = image => {
+    setSelectedImage(image);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <div>
       <SearchBar onSearch={handleInputChange} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
       {warning && <div className={css.warning}>{warning}</div>}
-      {images.length > 0 && <ImageGallery items={images} />}
+      {images.length > 0 && <ImageGallery items={images} onImageClick={openModal}/>}
+      <ImageModal isOpen={!!selectedImage} image={selectedImage} onRequestClose={closeModal} />
       <div className={css.centered}>
         {page < totalPage && <LoadMoreBtn onClick={loadMore} />}
       </div>

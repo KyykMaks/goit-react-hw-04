@@ -7,12 +7,13 @@ export const ImageCard = ({ item, onClick}) => {
     };
 
     return (
-        <div className={css.photoCard} onClick={handleClick}>
-<img 
-className={css.photo}
-src={item.urls.small}
-alt={item.alt_description}
-/>
+        <div className={css.photoCard}>
+            <img 
+                className={css.photo}
+                src={item.urls.small}
+                alt={item.alt_description}
+                onClick={handleClick}
+            />
         </div>
-    )
-}
+    );
+}  

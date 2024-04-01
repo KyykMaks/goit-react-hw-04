@@ -6,7 +6,8 @@ export const SearchBar = ({ onSearch }) => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
-    onSearch(form.elements[0].value);
+    const inputValue = form.elements["searchInput"].value;
+    onSearch(inputValue);
     form.reset();
   }
 
@@ -19,6 +20,7 @@ return  (
       autoComplete="off"
       autoFocus
       placeholder="Search images and photos"
+      name="searchInput"
     />
     <button className={css.button} type="submit">
       <FaSearch/>
